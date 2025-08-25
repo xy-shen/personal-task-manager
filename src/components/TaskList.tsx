@@ -7,7 +7,7 @@ import EditTaskForm from './EditTaskForm';
 import { Task, UpdateTaskInput } from '../types';
 
 const TaskList: React.FC = () => {
-  const { tasks, updateTask, deleteTask, toggleTaskStatus } = useTaskContext();
+  const { tasks, updateTask, deleteTask, toggleTaskStatus, resetToMockData } = useTaskContext();
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
 
@@ -64,24 +64,33 @@ const TaskList: React.FC = () => {
     <div className="task-list">
       <div className="task-list-header">
         <h2>Your Tasks</h2>
-        <div className="task-filters">
+        <div className="task-list-controls">
+          <div className="task-filters">
+            <button
+              className={filter === 'all' ? 'active' : ''}
+              onClick={() => setFilter('all')}
+            >
+              All ({tasks.length})
+            </button>
+            <button
+              className={filter === 'pending' ? 'active' : ''}
+              onClick={() => setFilter('pending')}
+            >
+              Pending ({tasks.filter(t => t.status === 'pending').length})
+            </button>
+            <button
+              className={filter === 'completed' ? 'active' : ''}
+              onClick={() => setFilter('completed')}
+            >
+              Completed ({tasks.filter(t => t.status === 'completed').length})
+            </button>
+          </div>
           <button
-            className={filter === 'all' ? 'active' : ''}
-            onClick={() => setFilter('all')}
+            onClick={resetToMockData}
+            className="btn btn-reset"
+            title="Reset all tasks to default mock data"
           >
-            All ({tasks.length})
-          </button>
-          <button
-            className={filter === 'pending' ? 'active' : ''}
-            onClick={() => setFilter('pending')}
-          >
-            Pending ({tasks.filter(t => t.status === 'pending').length})
-          </button>
-          <button
-            className={filter === 'completed' ? 'active' : ''}
-            onClick={() => setFilter('completed')}
-          >
-            Completed ({tasks.filter(t => t.status === 'completed').length})
+            Reset Data
           </button>
         </div>
       </div>
