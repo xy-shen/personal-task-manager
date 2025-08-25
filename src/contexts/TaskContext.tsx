@@ -3,14 +3,16 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { Task, CreateTaskInput, UpdateTaskInput } from '../types';
 import { mockTasks } from '../mockData';
-import { loadTasksFromStorage, saveTasksToStorage } from '../utils/storageUtils';
+  // Import clearTasksFromStorage at the top
+import { loadTasksFromStorage, saveTasksToStorage, clearTasksFromStorage } from '../utils/storageUtils';
 
 // Action types for the reducer
 type TaskAction =
   | { type: 'ADD_TASK'; payload: CreateTaskInput }
   | { type: 'UPDATE_TASK'; payload: UpdateTaskInput }
   | { type: 'DELETE_TASK'; payload: string }
-  | { type: 'TOGGLE_STATUS'; payload: string };
+  | { type: 'TOGGLE_STATUS'; payload: string }
+  | { type: 'RESET_TASKS'; payload: Task[] };
 
 // Context interface
 interface TaskContextType {
@@ -19,6 +21,7 @@ interface TaskContextType {
   updateTask: (input: UpdateTaskInput) => void;
   deleteTask: (id: string) => void;
   toggleTaskStatus: (id: string) => void;
+  resetToMockData: () => void;
   getTaskById: (id: string) => Task | undefined;
 }
 
@@ -63,6 +66,9 @@ const taskReducer = (state: Task[], action: TaskAction): Task[] => {
           : task
       );
 
+    case 'RESET_TASKS':
+      return action.payload;
+
     default:
       return state;
   }
@@ -99,6 +105,13 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch({ type: 'TOGGLE_STATUS', payload: id });
   };
 
+  const resetToMockData = () => {
+    if (window.confirm('Are you sure you want to reset all tasks to default data? This will delete all your custom tasks.')) {
+      clearTasksFromStorage();
+      dispatch({ type: 'RESET_TASKS', payload: mockTasks });
+    }
+  };
+
   const getTaskById = (id: string): Task | undefined => {
     return tasks.find(task => task.id === id);
   };
@@ -111,6 +124,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         updateTask,
         deleteTask,
         toggleTaskStatus,
+        resetToMockData,
         getTaskById
       }}
     >
