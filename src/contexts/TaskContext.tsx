@@ -1,8 +1,9 @@
 // contexts/TaskContext.tsx - Context for managing task state across components
 
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { Task, CreateTaskInput, UpdateTaskInput } from '../types';
 import { mockTasks } from '../mockData';
+import { loadTasksFromStorage, saveTasksToStorage } from '../utils/storageUtils';
 
 // Action types for the reducer
 type TaskAction =
@@ -69,7 +70,18 @@ const taskReducer = (state: Task[], action: TaskAction): Task[] => {
 
 // Provider component
 export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [tasks, dispatch] = useReducer(taskReducer, mockTasks);
+  // Initialize tasks from localStorage or use mock data as fallback
+  const initializeTasks = (): Task[] => {
+    const storedTasks = loadTasksFromStorage();
+    return storedTasks || mockTasks;
+  };
+
+  const [tasks, dispatch] = useReducer(taskReducer, [], initializeTasks);
+
+  // Save tasks to localStorage whenever tasks change
+  useEffect(() => {
+    saveTasksToStorage(tasks);
+  }, [tasks]);
 
   const addTask = (input: CreateTaskInput) => {
     dispatch({ type: 'ADD_TASK', payload: input });
