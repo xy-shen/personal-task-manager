@@ -1,26 +1,37 @@
+// App.tsx - Main application component with routing
+
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { TaskProvider } from './contexts/TaskContext';
+import TaskList from './components/TaskList';
+import TaskDetails from './components/TaskDetails';
+import AddTask from './components/AddTask';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TaskProvider>
+      <Router>
+        <div className="app">
+          <header className="app-header">
+            <h1>Personal Task Manager</h1>
+            <nav>
+              <Link to="/" className="nav-link">Tasks</Link>
+              <Link to="/add" className="nav-link">Add Task</Link>
+            </nav>
+          </header>
+
+          <main className="app-main">
+            <Routes>
+              <Route path="/" element={<TaskList />} />
+              <Route path="/add" element={<AddTask />} />
+              <Route path="/task/:id" element={<TaskDetails />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+    </TaskProvider>
   );
-}
+};
 
 export default App;
