@@ -1,46 +1,163 @@
-# Getting Started with Create React App
+# Personal Task Manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+a small **React + JavaScript web application** that works as a personal task manager. This project demonstrates modern React + TypeScript development practices, state management, and component architecture.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- ✅ **Task Management**: Create, read, update, and delete tasks
+- 🔄 **Status Tracking**: Toggle between pending and completed states
+- 🎯 **Filtering**: View all tasks, only pending, or only completed
+- 📱 **Responsive Design**: Works on desktop, tablet, and mobile devices
+- 🎨 **Clean UI**: Simple, functional interface focused on usability
+- 📄 **Task Details**: Individual pages for each task with full information
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Frontend**: React 18 + TypeScript
+- **Routing**: React Router v6
+- **State Management**: React Context + useReducer
+- **Styling**: CSS3 with responsive design
+- **Build Tool**: Create React App
+- **Version Control**: Git with feature branch workflow
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (version 16 or higher)
+- npm or yarn package manager
+- Modern web browser (Chrome, Firefox, Safari, Edge)
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/xy-shen/personal-task-manager
+   cd personal-task-manager
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Start the development server**
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-### `npm run eject`
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Building for Production
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run build
+# or
+yarn build
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This creates a `build` folder with optimized production files.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+```
+src/
+├── components/          # Reusable UI components
+│   ├── AddTask.tsx      # Add task page wrapper
+│   ├── EditTaskForm.tsx # Task editing form
+│   ├── TaskDetails.tsx  # Task detail page
+│   ├── TaskForm.tsx     # New task creation form
+│   ├── TaskItem.tsx     # Individual task display
+│   └── TaskList.tsx     # Main task list view
+├── contexts/            # React Context providers
+│   └── TaskContext.tsx  # Task state management
+├── utils/
+│   └── storageUtils     # Helper functions for localStorage operations
+├── App.css              # Application styles
+├── App.tsx              # Main application component
+├── index.tsx            # React application entry point
+├── mockData.ts          # Initial task data
+└── types.ts             # TypeScript interfaces
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Key Features Explained
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### State Management
+Uses React Context API with useReducer for predictable state updates:
+- Actions: ADD_TASK, UPDATE_TASK, DELETE_TASK, TOGGLE_STATUS
+- Immutable state updates
+- Type-safe operations
+
+### Routing
+Implements client-side routing with React Router:
+- `/` - Task list view
+- `/add` - Add new task form
+- `/task/:id` - Individual task details
+
+### TypeScript Integration
+- Strongly typed components and props
+- Interface definitions for all data structures
+- Type-safe state management
+
+### Responsive Design
+- Mobile-first approach
+- Flexible grid layouts
+- Touch-friendly interfaces
+
+
+## Testing
+
+The application has been tested on:
+- ✅ Chrome (latest)
+- ✅ Firefox (latest)  
+
+### Manual Testing Checklist
+- [ ] Add new task
+- [ ] Edit existing task
+- [ ] Delete task
+- [ ] Toggle task status
+- [ ] Reset task to mock data
+- [ ] Navigate between pages
+- [ ] Responsive design on different screen sizes
+
+## Author
+
+Created as part of a frontend development interview take-home assignment.
+
+---
+
+## Assignment Requirements Checklist
+
+### Core Features ✅
+- [x] Display task list from mock data
+- [x] Add new tasks via form
+- [x] Edit existing tasks (title & description)
+- [x] Delete tasks from list
+- [x] Task status management (pending/completed)
+
+### Technical Requirements ✅
+- [x] React + TypeScript latest stable versions
+- [x] React Router v6+ for navigation
+- [x] React hooks for state management (no Redux)
+- [x] Hardcoded mock data (no backend)
+- [x] Clean, readable code with meaningful names
+- [x] TypeScript interfaces for tasks and props
+- [x] Documentation with setup instructions
+
+### Development Practices ✅
+- [x] Public GitHub repository
+- [x] Feature branch workflow
+- [x] Clear commit messages
+- [x] Pull request workflow ready
+- [x] Issue tracking setup
+- [x] Cross-browser testing
+
+### Optional Enhancements
+- [x] localStorage persistence
+- [ ] Advanced accessibility features
+- [ ] Comprehensive test suite
